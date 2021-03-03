@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('fetch:reddit')->cron('0 0 * * *')->sendOutputTo('/tmp/laravel_cron_output.log');
     }
 
     /**

@@ -19,8 +19,4 @@ COPY ./src/composer*.json ./
 
 WORKDIR /var/www/html/
 
-# Create the log file to be able to run tail
-# RUN touch /tmp/cron.log
-
-# Setup cron job
 RUN (crontab -l ; echo "* * * * * cd /var/www/html && /usr/local/bin/php artisan schedule:run >> /tmp/cron.log") | crontab

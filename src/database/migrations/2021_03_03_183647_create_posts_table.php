@@ -17,9 +17,11 @@ class CreatePostsTable extends Migration
             $table->id();
 
             $table->string('author');
-            $table->string('title');
+            $table->text('title');
             $table->integer('count_comments')->unsigned();
             $table->integer('count_up_votes')->unsigned();
+
+            $table->string('original_id')->unique();
 
             $table->timestamps();
         });
