@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class GetPostsRequestValidationTest extends TestCase
+class GetAuthorsRequestValidationTest extends TestCase
 {
 
     use RefreshDatabase;
@@ -21,14 +21,14 @@ class GetPostsRequestValidationTest extends TestCase
     }
 
     /** @test */
-    public function get_all_posts_dates_are_required()
+    public function get_all_authors_dates_are_required()
     {
 
         $this->followingRedirects();
 
         $sort_key = 'count_up_votes';
 
-        $endpoint = route('api.v1.posts') . '?' . http_build_query(compact('sort_key'));
+        $endpoint = route('api.v1.authors') . '?' . http_build_query(compact('sort_key'));
 
         $response = $this->get($endpoint, [
             'accept' => 'application/json',
@@ -43,7 +43,7 @@ class GetPostsRequestValidationTest extends TestCase
     }
 
     /** @test */
-    public function get_all_posts_sort_key_is_required()
+    public function get_all_authors_sort_key_is_required()
     {
 
         $this->followingRedirects();
@@ -51,7 +51,7 @@ class GetPostsRequestValidationTest extends TestCase
         $start_date = now()->subDays(30)->toDateString();
         $end_date = now()->toDateString();
 
-        $endpoint = route('api.v1.posts') . '?' . http_build_query(compact('start_date', 'end_date'));
+        $endpoint = route('api.v1.authors') . '?' . http_build_query(compact('start_date', 'end_date'));
 
 
         $response = $this->get($endpoint, [
@@ -67,7 +67,7 @@ class GetPostsRequestValidationTest extends TestCase
     }
 
     /** @test */
-    public function get_all_posts_filter_parameter_validation()
+    public function get_all_authors_filter_parameter_validation()
     {
 
         $this->followingRedirects();
@@ -75,7 +75,7 @@ class GetPostsRequestValidationTest extends TestCase
         $start_date = 'abc';
         $end_date = 'def';
 
-        $endpoint = route('api.v1.posts') . '?' . http_build_query(compact('start_date', 'end_date'));
+        $endpoint = route('api.v1.authors') . '?' . http_build_query(compact('start_date', 'end_date'));
 
         $response = $this->get($endpoint, [
             'accept' => 'application/json',
@@ -90,12 +90,12 @@ class GetPostsRequestValidationTest extends TestCase
     }
 
     /** @test */
-    public function get_all_posts_sorting_parameter_validation()
+    public function get_all_authors_sorting_parameter_validation()
     {
 
         $sort_key = 'asiothasio';
 
-        $endpoint = route('api.v1.posts') . '?' . http_build_query(compact('sort_key'));
+        $endpoint = route('api.v1.authors') . '?' . http_build_query(compact('sort_key'));
 
         $response = $this->get($endpoint, [
             'accept' => 'application/json',
