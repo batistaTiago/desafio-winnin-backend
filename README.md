@@ -94,10 +94,10 @@ http://localhost:8100/api/v1/authors?start_date=2021-02-03&end_date=2021-03-03&s
 }
 ```
 
-Estou incluindo um arquivo `.env`, que contém as variáveis de ambientes necessárias para rodar o sistema, nele, as estão credenciais para conectar no banco local que usei como testes (as mesmas que estão definidas no arquivo `docker-compose.yml`, dentro do serviço mysql). O nome do banco em questão foi 'test_winnin', mas pode ser ajustado conforme a preferência.
+Estou incluindo, dentro da pasta `src`, um arquivo `.env`, com todas as variáveis de ambientes necessárias para rodar o sistema. Nele, estão as credenciais para conectar no banco local que usei como testes (as mesmas que estão definidas no arquivo `docker-compose.yml`, dentro do serviço mysql). O nome do banco em questão foi 'test_winnin', mas pode ser ajustado conforme a preferência.
 
 
-Na descrição do desafio proposto estava dizendo que poderia ser feito em qualquer linguagem, mas que era preferível que fosse feito em Node/GO. Apesar de ter exposição ao ambiente node, não cheguei a praticar tanto a linguagem. Decidi fazer em PHP/Laravel pois é a ferramenta com a qual tenho mais familiaridade e posso entregar um trabalho melhor em menos tempo, mas não acho que fazer em Node seria um impeditivo considerando o prazo que foi dado.
+Na descrição do desafio proposto estava dizendo que poderia ser feito em qualquer linguagem, mas que era preferível que fosse feito em Node ou Go. Apesar de ter exposição ao ambiente Node, não cheguei a praticar tanto a linguagem. Decidi fazer em PHP/Laravel pois é a ferramenta com a qual tenho mais familiaridade e posso entregar um trabalho melhor em menos tempo, mas não acho que fazer em Node seria um impeditivo considerando o prazo que foi dado.
 
 
 Obrigado pela oportunidade.

@@ -8,4 +8,5 @@ docker-compose exec php bash -c "service cron reload";
 docker-compose exec php bash -c "service cron start";
 
 docker-compose exec php bash -c "php artisan config:clear && ./vendor/bin/phpunit ./tests --testdox"
+docker-compose exec php bash -c "php artisan config:clear && php artisan migrate:fresh"
 
