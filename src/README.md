@@ -1,62 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Desafio Backend Winnin - Solucao por Tiago Batista
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Para rodar o sistema, deve-se seguir os passos definidos no arquivo `initial-setup.sh`.
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Obs: a obtenção dos dados na API do Reddit foi feita utilizando um CRON com a configuracao "0 0 * * *", isto é, todos os dias à meia noite. A rotina que é executada pelo cron pode ser verificada no arquivo `src/app/Console/Kernel.php` e `src/app/Console/Commands/FetchRedditHotData.php`.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Para rodar os testes: `docker-compose exec php bash -c "php artisan config:clear && ./vendor/bin/phpunit ./tests"` (podendo passar a flag `--testdox` opcionalmente)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+A porta exposta da API, por padrão, é a 8100 mas isso pode ser configurado no arquivo `docker-compose.yml`, dentro do serviço nginx.
 
-## Learning Laravel
+Os endpoints desenvolvidos estão no arquivo `routes/api.php` e ambos utilizam os seguintes parâmetros de entrada (que devem ser passados em formato query_string):
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+*OBRIGATORIO* `start_date` e `end_date`-> define um intervalo de tempo (entre duas strings em formato datetime) em que o post deve ter sido criado para ser considerado no retorno
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+*OBRIGATORIO* `sort_key` -> define qual parâmetro deve ser usado na ordenação dos itens da lista de retorno, e pode assumir exclusivamente as strings: "count_up_votes" e "count_comments"
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+1 - GET /api/v1/posts
+http://localhost:8100/api/v1/posts?start_date=2021-02-03&end_date=2021-03-03&sort_key=count_up_votes
+\[Retorno\]
 
-### Premium Partners
+```json
+{
+    "sucesso": true,
+    "data": [
+        {
+            "id": 59,
+            "author": "TheInsaneApp",
+            "title": "How to keep kids away from TV - The Artificial Intelligence Way",
+            "count_comments": 383,
+            "count_up_votes": 76,
+            "original_id": "lvuwf7",
+            "created_at": "2021-03-02T05:36:15.000000Z",
+            "updated_at": null
+        },
+        {
+            "id": 68,
+            "author": "new_confusion_2021",
+            "title": "Made my computer trip balls (GAN trained on psychedelic and visionary artworks)",
+            "count_comments": 448,
+            "count_up_votes": 35,
+            "original_id": "lvfua3",
+            "created_at": "2021-03-01T18:03:55.000000Z",
+            "updated_at": null
+        },
+        {
+            "id": 67,
+            "author": "mr_j_b",
+            "title": "US Currently Incapable Of Defense Against Artificial Intelligence Threats",
+            "count_comments": 15,
+            "count_up_votes": 7,
+            "original_id": "lw0jsl",
+            "created_at": "2021-03-02T12:09:47.000000Z",
+            "updated_at": null
+        },
+        // ...
+    ]
+}
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2 - GET /api/v1/posts
+http://localhost:8100/api/v1/authors?start_date=2021-02-03&end_date=2021-03-03&sort_key=count_comments
+\[Retorno\]
 
-## Code of Conduct
+```json
+{
+    "sucesso": true,
+    "data": [
+        {
+            "author": "new_confusion_2021",
+            "count_comments": "448",
+            "count_up_votes": "35"
+        },
+        {
+            "author": "TheInsaneApp",
+            "count_comments": "383",
+            "count_up_votes": "76"
+        },
+        {
+            "author": "rikki_hi",
+            "count_comments": "43",
+            "count_up_votes": "2"
+        },
+        {
+            "author": "mr_j_b",
+            "count_comments": "21",
+            "count_up_votes": "10"
+        },
+        // ...
+    ]
+}
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Estou incluindo um arquivo `.env`, que contém as variáveis de ambientes necessárias para rodar o sistema, nele, as estão credenciais para conectar no banco local que usei como testes (as mesmas que estão definidas no arquivo `docker-compose.yml`, dentro do serviço mysql). O nome do banco em questão foi 'test_winnin', mas pode ser ajustado conforme a preferência.
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Na descrição do desafio proposto estava dizendo que poderia ser feito em qualquer linguagem, mas que era preferível que fosse feito em Node/GO. Apesar de ter exposição ao ambiente node, não cheguei a praticar tanto a linguagem. Decidi fazer em PHP/Laravel pois é a ferramenta com a qual tenho mais familiaridade e posso entregar um trabalho melhor em menos tempo, mas não acho que fazer em Node seria um impeditivo considerando o prazo que foi dado.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Obrigado pela oportunidade.

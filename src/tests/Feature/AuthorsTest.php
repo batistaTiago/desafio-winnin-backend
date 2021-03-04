@@ -29,80 +29,80 @@ class AuthorsTest extends TestCase
 
         // popular a minha base...
         Post::insert([
-            /* users user a */
+            /* posts user a */
             [
                 'title' => Str::random(10),
                 'author' => $user_a,
                 'created_at' => now()->subDays(rand(1, 7)),
-                'count_up_votes' => 6000,
-                'count_comments' => 600,
+                'count_up_votes' => rand(0,500),
+                'count_comments' => rand(0,500),
                 'original_id' => Str::random(32),
             ],
             [
                 'title' => Str::random(10),
                 'author' => $user_a,
                 'created_at' => now()->subDays(rand(1, 7)),
-                'count_up_votes' => 2000,
-                'count_comments' => 200,
+                'count_up_votes' => rand(0,500),
+                'count_comments' => rand(0,500),
                 'original_id' => Str::random(32),
             ],
             [
                 'title' => Str::random(10),
                 'author' => $user_a,
                 'created_at' => now()->subDays(rand(1, 7)),
-                'count_up_votes' => 1500,
-                'count_comments' => 150,
+                'count_up_votes' => rand(0,500),
+                'count_comments' => rand(0,500),
                 'original_id' => Str::random(32),
             ],
             [
                 'title' => Str::random(10),
                 'author' => $user_a,
                 'created_at' => now()->subDays(rand(1, 7)),
-                'count_up_votes' => 980,
-                'count_comments' => 100,
+                'count_up_votes' => rand(0,500),
+                'count_comments' => rand(0,500),
                 'original_id' => Str::random(32),
             ],
             [
                 'title' => Str::random(10),
                 'author' => $user_a,
                 'created_at' => now()->subDays(rand(1, 7)),
-                'count_up_votes' => 420,
-                'count_comments' => 40,
+                'count_up_votes' => rand(0,500),
+                'count_comments' => rand(0,500),
                 'original_id' => Str::random(32),
             ],
-            /* users user b */
+            /* posts user b */
             [
                 'title' => Str::random(10),
                 'author' => $user_b,
                 'created_at' => now()->subDays(rand(1, 7)),
-                'count_up_votes' => 690,
-                'count_comments' => 85,
+                'count_up_votes' => rand(0,500),
+                'count_comments' => rand(0,500),
                 'original_id' => Str::random(32),
             ],
             [
                 'title' => Str::random(10),
                 'author' => $user_b,
                 'created_at' => now()->subDays(rand(1, 7)),
-                'count_up_votes' => 130,
-                'count_comments' => 5,
+                'count_up_votes' => rand(0,500),
+                'count_comments' => rand(0,500),
                 'original_id' => Str::random(32),
             ],
-            /* users user c */
+            /* posts user c */
             [
                 'title' => Str::random(10),
                 'author' => $user_c,
                 'created_at' => now()->subDays(rand(1, 7)),
-                'count_up_votes' => 2,
-                'count_comments' => 2,
+                'count_up_votes' => rand(0,500),
+                'count_comments' => rand(0,500),
                 'original_id' => Str::random(32),
             ],
-            /* users user d */
+            /* posts user d */
             [
                 'title' => Str::random(10),
                 'author' => $user_d,
                 'created_at' => now()->subYears(rand(4, 7)),
-                'count_up_votes' => 2,
-                'count_comments' => 2,
+                'count_up_votes' => rand(0,500),
+                'count_comments' => rand(0,500),
                 'original_id' => Str::random(32),
             ],
         ]);
