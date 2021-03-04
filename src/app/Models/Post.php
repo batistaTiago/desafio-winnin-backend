@@ -12,23 +12,21 @@ class Post extends Model
 
     public static function getAllWithFilters($filters, $sort_key)
     {
-        $data = Post::whereBetween('created_at', $filters)
-            ->orderBy($sort_key, 'desc');
-
-        return $data->get();
+        return Post::whereBetween('created_at', $filters)
+            ->orderBy($sort_key, 'desc')
+            ->get();
     }
 
     public static function getGroupedAuthorsWithFilters($filters, $sort_key)
     {
-        $data = Post::select([
+        return Post::select([
             'posts.author',
             DB::raw('SUM(posts.count_comments) as count_comments'),
             DB::raw('SUM(posts.count_up_votes) as count_up_votes'),
         ])
             ->whereBetween('created_at', $filters)
             ->groupBy('posts.author')
-            ->orderBy($sort_key, 'desc');
-
-        return $data->get();
+            ->orderBy($sort_key, 'desc')
+            ->get();
     }
 }

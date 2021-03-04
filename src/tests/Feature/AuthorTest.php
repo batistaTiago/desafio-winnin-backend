@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class AuthorsTest extends TestCase
+class AuthorTest extends TestCase
 {
 
     use RefreshDatabase, CallRoute;
